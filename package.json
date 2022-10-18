@@ -27,12 +27,15 @@
   "dependencies": {
     "@emotion/react": "^11.10.4",
     "@fvilers/disable-react-devtools": "^1.x",
+    "@hookform/resolvers": "^2.9.9",
     "@mantine/core": "^5.5.5",
     "@mantine/form": "^5.5.5",
     "@mantine/hooks": "^5.5.5",
     "react": "^18.x",
     "react-dom": "^18.x",
-    "react-router-dom": "^6.4.2"
+    "react-hook-form": "^7.37.0",
+    "react-router-dom": "^6.4.2",
+    "yup": "^0.32.11"
   },
   "devDependencies": {
     "@commitlint/cli": "^17.x",
