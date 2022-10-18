@@ -7,8 +7,8 @@
   "main": "src/main.tsx",
   "author": "Samuel Pires",
   "scripts": {
-    "dev": "vite",
-    "build": "tsc && vite build",
+    "dev": "yarn relay && vite",
+    "build": "yarn relay && tsc && vite build",
     "preview": "vite preview",
     "test": "vitest",
     "test:watch": "vitest --watch",
