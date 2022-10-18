@@ -4,7 +4,7 @@ import { createRoot } from 'react-dom/client'
 import { disableReactDevTools } from '@fvilers/disable-react-devtools'
 import { MantineProvider } from '@mantine/core'
 
-import { App } from '@/App'
+import { App } from './App'
 
 if (import.meta.env.MODE === 'production') {
   disableReactDevTools()
