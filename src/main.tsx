@@ -12,7 +12,7 @@ if (import.meta.env.MODE === 'production') {
 
 createRoot(document.getElementById('root') as HTMLElement).render(
   <StrictMode>
-    <MantineProvider withGlobalStyles withNormalizeCSS>
+    <MantineProvider theme={{ colorScheme: 'dark' }} withGlobalStyles withNormalizeCSS>
       <App />
     </MantineProvider>
   </StrictMode>,
