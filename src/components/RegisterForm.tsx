@@ -1,8 +1,13 @@
 import { SubmitHandler, useForm } from 'react-hook-form'
+import { useMutation } from 'react-relay'
+import { useNavigate } from 'react-router-dom'
 
 import { yupResolver } from '@hookform/resolvers/yup'
 import { Button, Container, Paper, PasswordInput, Text, TextInput, Title } from '@mantine/core'
 import * as Yup from 'yup'
+
+import { RegisterWithEmail } from '@/graphql/mutations/RegisterWithEmail'
+import { RegisterWithEmailMutation } from '@/graphql/mutations/__generated__/RegisterWithEmailMutation.graphql'
 
 type Inputs = {
   name: string
@@ -17,11 +22,6 @@ const schema = Yup.object({
     .required('Password is required'),
   name: Yup.string().required('A username is required'),
 })
-
-const onSubmit: SubmitHandler<Inputs> = (data) => {
-  // eslint-disable-next-line no-console
-  console.log(data)
-}
 export function RegisterForm() {
   const {
     register,
@@ -30,6 +30,28 @@ export function RegisterForm() {
   } = useForm<Inputs>({
     resolver: yupResolver(schema),
   })
+
+  const navigate = useNavigate()
+
+  const [commitMutation] = useMutation<RegisterWithEmailMutation>(RegisterWithEmail)
+
+  const onSubmit: SubmitHandler<Inputs> = (data) => {
+    commitMutation({
+      variables: { input: data },
+      onCompleted: ({ RegisterWithEmailMutation }) => {
+        if (RegisterWithEmailMutation?.error) {
+          alert(`Registration Error`)
+          navigate('/')
+          return
+        }
+        if (RegisterWithEmailMutation?.token) {
+          localStorage.setItem('AUTH-TOKEN', RegisterWithEmailMutation?.token)
+        }
+        alert(`Account for ${RegisterWithEmailMutation?.me?.email} created!!!`)
+        navigate('/')
+      },
+    })
+  }
 
   return (
     <Container size={420} my={40}>
