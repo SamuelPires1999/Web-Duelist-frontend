@@ -1,14 +1,11 @@
 {
-  "name": "eruption",
-  "description": "Next Generation Boilerplate for React/Typescript, built on top of Vite ⚡️",
+  "name": "web-duelist-frontend",
+  "description": "The front end app for the web duelist project",
   "private": false,
   "version": "1.1.0",
   "license": "MIT",
   "main": "src/main.tsx",
-  "author": "Diogo 'Mozão' Fonseca <devmozao@outlook.com>",
-  "homepage": "https://github.com/eruptionjs/core#readme",
-  "repository": "github:eruptionjs/core.git",
-  "bugs": "https://github.com/eruptionjs/core/issues",
+  "author": "Samuel Pires",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
@@ -87,11 +84,7 @@
   },
   "keywords": [
     "react",
-    "boilerplate",
     "vite",
-    "bundle",
-    "typescript",
-    "starter",
-    "template"
+    "typescript"
   ]
 }
