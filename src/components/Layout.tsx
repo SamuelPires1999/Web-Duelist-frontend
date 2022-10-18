@@ -1,16 +1,21 @@
 import { ReactNode, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 import {
   AppShell,
   Aside,
   Burger,
+  Center,
   Footer,
   Header,
   MediaQuery,
   Navbar,
+  ScrollArea,
   Text,
+  Title,
   useMantineTheme,
 } from '@mantine/core'
+import { IconShield, IconSword } from '@tabler/icons'
 
 interface Props {
   children: ReactNode
@@ -18,6 +23,7 @@ interface Props {
 
 export default function Layout({ children }: Props) {
   const theme = useMantineTheme()
+  const navigate = useNavigate()
   const [opened, setOpened] = useState(false)
   return (
     <AppShell
@@ -42,7 +48,7 @@ export default function Layout({ children }: Props) {
       }
       footer={
         <Footer height={60} p="md">
-          Application footer
+          <Center>Created By Sammy</Center>
         </Footer>
       }
       header={
@@ -58,12 +64,18 @@ export default function Layout({ children }: Props) {
               />
             </MediaQuery>
 
-            <Text>Application header</Text>
+            <Center sx={{ gap: '30px', width: '100%' }}>
+              <IconSword size={40} />
+              <Title sx={{ cursor: 'pointer' }} onClick={() => navigate('/')}>
+                Web Duelist
+              </Title>
+              <IconShield size={40} />
+            </Center>
           </div>
         </Header>
       }
     >
-      {children}
+      <ScrollArea>{children}</ScrollArea>
     </AppShell>
   )
 }
