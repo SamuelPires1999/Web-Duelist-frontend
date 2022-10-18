@@ -2,6 +2,7 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 
 import { disableReactDevTools } from '@fvilers/disable-react-devtools'
+import { MantineProvider } from '@mantine/core'
 
 import { App } from '@/App'
 
@@ -11,7 +12,9 @@ if (import.meta.env.MODE === 'production') {
 
 createRoot(document.getElementById('root') as HTMLElement).render(
   <StrictMode>
-    <App />
+    <MantineProvider withGlobalStyles withNormalizeCSS>
+      <App />
+    </MantineProvider>
   </StrictMode>,
 )
 
