@@ -17,6 +17,8 @@ import {
 } from '@mantine/core'
 import { IconShield, IconSword } from '@tabler/icons'
 
+import { NavBarContent } from './NavBar'
+
 interface Props {
   children: ReactNode
 }
@@ -36,7 +38,7 @@ export default function Layout({ children }: Props) {
       asideOffsetBreakpoint="sm"
       navbar={
         <Navbar p="md" hiddenBreakpoint="sm" hidden={!opened} width={{ sm: 200, lg: 300 }}>
-          <Text>Application navbar</Text>
+          <NavBarContent />
         </Navbar>
       }
       aside={

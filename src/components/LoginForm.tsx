@@ -1,9 +1,19 @@
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { useMutation } from 'react-relay'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 import { yupResolver } from '@hookform/resolvers/yup'
-import { Button, Container, Paper, PasswordInput, Text, TextInput, Title } from '@mantine/core'
+import {
+  Anchor,
+  Button,
+  Container,
+  Group,
+  Paper,
+  PasswordInput,
+  Text,
+  TextInput,
+  Title,
+} from '@mantine/core'
 import * as Yup from 'yup'
 
 import { LoginWithEmail } from '@/graphql/mutations/LoginWithEmail'
@@ -80,6 +90,12 @@ export function LoginForm() {
           <Button fullWidth mt="xl" type="submit" disabled={isSubmitting}>
             {isSubmitting ? 'Loading...' : 'Login'}
           </Button>
+          <Group position="apart" sx={{ marginTop: '12px' }}>
+            <Text sx={{ fontSize: '14px' }}>Doesnt have an account yet? </Text>
+            <Link to={'/register'}>
+              <Anchor sx={{ fontSize: '14px' }}>Create One</Anchor>
+            </Link>
+          </Group>
         </Paper>
       </form>
     </Container>
