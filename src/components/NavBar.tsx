@@ -1,10 +1,10 @@
 import { Link } from 'react-router-dom'
 
 import { Group, Navbar, Title, createStyles } from '@mantine/core'
-import { IconClipboardList, IconLogout, IconSword, IconUsers } from '@tabler/icons'
+import { IconLogout, IconSword, IconUsers } from '@tabler/icons'
 
 const useStyles = createStyles((theme, _params, getRef) => {
-  const icon = getRef('icon')
+  const icon: string = getRef('icon')
   return {
     header: {
       paddingBottom: theme.spacing.md,
@@ -64,7 +64,7 @@ const useStyles = createStyles((theme, _params, getRef) => {
 
 const data = [
   { link: '/', label: 'Characters', icon: IconUsers },
-  { link: '/', label: 'Inventory', icon: IconClipboardList },
+  { link: '/', label: 'Arena', icon: IconUsers },
 ]
 
 export function NavBarContent() {
