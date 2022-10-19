@@ -39,7 +39,8 @@
     "react-relay": "^14.1.0",
     "react-router-dom": "^6.4.2",
     "relay-runtime": "^14.1.0",
-    "yup": "^0.32.11"
+    "yup": "^0.32.11",
+    "zustand": "^4.1.2"
   },
   "devDependencies": {
     "@commitlint/cli": "^17.x",

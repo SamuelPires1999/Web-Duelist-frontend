@@ -7,6 +7,7 @@ import { MantineProvider } from '@mantine/core'
 
 import { App } from './App'
 import relayEnvironment from './RelayEnvironment'
+import { AuthProvider } from './auth/AuthContext'
 
 if (import.meta.env.MODE === 'production') {
   disableReactDevTools()
@@ -16,7 +17,9 @@ createRoot(document.getElementById('root') as HTMLElement).render(
   <StrictMode>
     <RelayEnvironmentProvider environment={relayEnvironment}>
       <MantineProvider theme={{ colorScheme: 'dark' }} withGlobalStyles withNormalizeCSS>
-        <App />
+        <AuthProvider>
+          <App />
+        </AuthProvider>
       </MantineProvider>
     </RelayEnvironmentProvider>
   </StrictMode>,

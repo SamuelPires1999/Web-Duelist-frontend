@@ -8,6 +8,9 @@ export interface AuthContextValue {
   signout: (cb: VoidFunction) => void
 }
 
+// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+export const AuthContext = React.createContext<AuthContextValue>(null!)
+
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [userToken, setUserToken] = useState<AuthContextValue['token']>(() => getAuthToken())
 
@@ -34,6 +37,3 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
 }
-
-// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-export const AuthContext = React.createContext<AuthContextValue>(null!)

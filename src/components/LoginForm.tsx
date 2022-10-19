@@ -16,8 +16,10 @@ import {
 } from '@mantine/core'
 import * as Yup from 'yup'
 
+import { useAuth } from '@/auth/useAuth'
 import { LoginWithEmail } from '@/graphql/mutations/LoginWithEmail'
 import { LoginWithEmailMutation } from '@/graphql/mutations/__generated__/LoginWithEmailMutation.graphql'
+import { useStore } from '@/store/useStore'
 
 type Inputs = {
   name: string
@@ -40,6 +42,8 @@ export function LoginForm() {
     resolver: yupResolver(schema),
   })
 
+  const { signin } = useAuth()
+  const store = useStore()
   const navigate = useNavigate()
 
   const [commitMutation] = useMutation<LoginWithEmailMutation>(LoginWithEmail)
@@ -53,9 +57,15 @@ export function LoginForm() {
           return
         }
         if (LoginWithEmailMutation?.token) {
-          localStorage.setItem('AUTH-TOKEN', LoginWithEmailMutation?.token)
+          signin(LoginWithEmailMutation.token, () => {
+            store.setUser({
+              _id: LoginWithEmailMutation.me?._id,
+              name: LoginWithEmailMutation.me?.name,
+              email: LoginWithEmailMutation.me?.email,
+            })
+            navigate('/', { replace: true })
+          })
         }
-        navigate('/')
       },
     })
   }

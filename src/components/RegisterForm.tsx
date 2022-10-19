@@ -6,8 +6,10 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { Button, Container, Paper, PasswordInput, Text, TextInput, Title } from '@mantine/core'
 import * as Yup from 'yup'
 
+import { useAuth } from '@/auth/useAuth'
 import { RegisterWithEmail } from '@/graphql/mutations/RegisterWithEmail'
 import { RegisterWithEmailMutation } from '@/graphql/mutations/__generated__/RegisterWithEmailMutation.graphql'
+import { useStore } from '@/store/useStore'
 
 type Inputs = {
   name: string
@@ -23,6 +25,9 @@ const schema = Yup.object({
   name: Yup.string().required('A username is required'),
 })
 export function RegisterForm() {
+  const { signin } = useAuth()
+  const store = useStore()
+
   const {
     register,
     handleSubmit,
@@ -38,17 +43,22 @@ export function RegisterForm() {
   const onSubmit: SubmitHandler<Inputs> = (data) => {
     commitMutation({
       variables: { input: data },
-      onCompleted: ({ RegisterWithEmailMutation }) => {
-        if (RegisterWithEmailMutation?.error) {
+      onCompleted: ({ RegisterWithEmailMutation }, error) => {
+        if (RegisterWithEmailMutation?.error || error) {
           alert(`Registration Error`)
           navigate('/')
           return
         }
         if (RegisterWithEmailMutation?.token) {
-          localStorage.setItem('AUTH-TOKEN', RegisterWithEmailMutation?.token)
+          signin(RegisterWithEmailMutation.token, () => {
+            store.setUser({
+              _id: RegisterWithEmailMutation.me?._id,
+              name: RegisterWithEmailMutation.me?.name,
+              email: RegisterWithEmailMutation.me?.email,
+            })
+            navigate('/', { replace: true })
+          })
         }
-        alert(`Account for ${RegisterWithEmailMutation?.me?.email} created!!!`)
-        navigate('/')
       },
     })
   }

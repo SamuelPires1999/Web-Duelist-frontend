@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom'
 import { Group, Navbar, Title, createStyles } from '@mantine/core'
 import { IconLogout, IconSword, IconUsers } from '@tabler/icons'
 
+import { useStore } from '@/store/useStore'
+
 const useStyles = createStyles((theme, _params, getRef) => {
   const icon: string = getRef('icon')
   return {
@@ -69,6 +71,7 @@ const data = [
 
 export function NavBarContent() {
   const { classes, cx } = useStyles()
+  const { user } = useStore()
 
   const links = data.map((item) => (
     <Link className={cx(classes.link)} to={item.link} key={item.label}>
@@ -88,10 +91,17 @@ export function NavBarContent() {
       </Navbar.Section>
 
       <Navbar.Section className={classes.footer}>
-        <Link to="/login" className={classes.link}>
-          <IconLogout className={classes.linkIcon} stroke={1.5} />
-          <span>Login</span>
-        </Link>
+        {user ? (
+          <span className={classes.link}>
+            <IconLogout className={classes.linkIcon} stroke={1.5} />
+            Logged as {user.name}
+          </span>
+        ) : (
+          <Link to="/login" className={classes.link}>
+            <IconLogout className={classes.linkIcon} stroke={1.5} />
+            <span>Login</span>
+          </Link>
+        )}
       </Navbar.Section>
     </>
   )
