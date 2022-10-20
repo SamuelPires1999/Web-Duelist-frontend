@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 
-import { Group, Navbar, Title, createStyles } from '@mantine/core'
+import { Avatar, Group, Navbar, Title, createStyles } from '@mantine/core'
 import { IconLogout, IconSword, IconUsers } from '@tabler/icons'
 
 import { useStore } from '@/store/useStore'
@@ -92,10 +92,10 @@ export function NavBarContent() {
 
       <Navbar.Section className={classes.footer}>
         {user ? (
-          <span className={classes.link}>
-            <IconLogout className={classes.linkIcon} stroke={1.5} />
-            Logged as {user.name}
-          </span>
+          <Group>
+            <Avatar />
+            <span>{user.name}</span>
+          </Group>
         ) : (
           <Link to="/login" className={classes.link}>
             <IconLogout className={classes.linkIcon} stroke={1.5} />
